@@ -64,23 +64,22 @@ export const WelcomeScreen = ({ onProceed }: WelcomeScreenProps) => {
         ))}
       </div>
 
-      {/* Main content */}
+      {/* Birthday Card */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        className="text-center z-10 px-6 max-w-2xl"
+        initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
+        animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="text-center z-10 px-6 max-w-3xl"
       >
+        {/* Card Header */}
         <motion.div
-          animate={{ 
-            rotate: [0, 5, -5, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{ duration: 2, repeat: Infinity }}
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
           className="mb-8"
         >
           <motion.h1 
-            className="text-6xl md:text-8xl font-bold mb-4"
+            className="text-5xl md:text-7xl font-bold mb-2"
             animate={{
               backgroundPosition: ['0%', '100%', '0%'],
             }}
@@ -90,56 +89,99 @@ export const WelcomeScreen = ({ onProceed }: WelcomeScreenProps) => {
               ease: "linear",
             }}
             style={{
-              backgroundImage: 'linear-gradient(90deg, hsl(var(--primary)), hsl(var(--gold)), hsl(var(--peach-dark)), hsl(var(--primary)))',
+              backgroundImage: 'linear-gradient(90deg, hsl(var(--primary)), hsl(var(--gold)), hsl(var(--peach-light)), hsl(var(--primary)))',
               backgroundSize: '200% 100%',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
+              textShadow: '0 0 30px hsl(var(--primary) / 0.3)',
             }}
           >
-            ✨ 🎂 ✨
+            To My Princess 👑
           </motion.h1>
+          <motion.div
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.5, 1, 0.5],
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="text-6xl"
+          >
+            ✨ 🎂 ✨
+          </motion.div>
         </motion.div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-4xl md:text-6xl font-bold mb-6 text-foreground"
-        >
-          Birthday Celebration
-        </motion.h2>
-
+        {/* Main Card Body */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-8 mb-8 shadow-[var(--shadow-soft)]"
+          className="bg-gradient-to-br from-card/80 via-card/60 to-card/80 backdrop-blur-md border-2 border-primary/30 rounded-3xl p-10 md:p-12 mb-6 shadow-[var(--shadow-soft)] relative overflow-hidden"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Volume2 className="w-8 h-8 text-primary animate-pulse" />
-            <h3 className="text-2xl font-semibold text-primary">Important!</h3>
-          </div>
-          <p className="text-lg text-muted-foreground">
-            Please use earphones before proceeding
-          </p>
-          <p className="text-sm text-muted-foreground mt-2">
-            This experience is designed with special audio for you ♡
-          </p>
-        </motion.div>
+          {/* Decorative corner elements */}
+          <div className="absolute top-0 left-0 w-20 h-20 border-t-4 border-l-4 border-gold rounded-tl-3xl"></div>
+          <div className="absolute top-0 right-0 w-20 h-20 border-t-4 border-r-4 border-gold rounded-tr-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-20 h-20 border-b-4 border-l-4 border-gold rounded-bl-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-20 h-20 border-b-4 border-r-4 border-gold rounded-br-3xl"></div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-        >
-          <Button
-            onClick={onProceed}
-            size="lg"
-            className="bg-gradient-to-r from-primary via-gold to-peach-dark text-primary-foreground font-bold text-xl px-12 py-6 rounded-full hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:scale-105"
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="text-xl md:text-2xl leading-relaxed text-foreground font-medium mb-8"
           >
-            Proceed to Celebration 🎉
-          </Button>
+            Maybe I am not able to give you an expensive gift now, or I can't celebrate your birthday in front of you, but I have planned something special for you.
+            <br />
+            <span className="text-primary font-bold text-2xl md:text-3xl block mt-6">
+              Please watch this... 💝
+            </span>
+          </motion.p>
+
+          {/* Earphone Warning */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1 }}
+            className="bg-gradient-to-r from-primary/20 via-gold/20 to-primary/20 backdrop-blur-sm border border-primary/40 rounded-2xl p-6 mb-6"
+          >
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <Volume2 className="w-8 h-8 text-primary" />
+              </motion.div>
+              <h3 className="text-xl md:text-2xl font-bold text-primary">Please Use Earphones!</h3>
+            </div>
+            <p className="text-base md:text-lg text-muted-foreground">
+              This experience is designed with special audio for you ♡
+            </p>
+          </motion.div>
+
+          {/* Proceed Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2 }}
+          >
+            <Button
+              onClick={onProceed}
+              size="lg"
+              className="bg-gradient-to-r from-primary via-gold to-peach-dark text-primary-foreground font-bold text-lg md:text-xl px-10 py-6 rounded-full hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:scale-105 relative overflow-hidden group"
+            >
+              <motion.span
+                className="relative z-10"
+                animate={{ 
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                Begin the Celebration 🎉
+              </motion.span>
+            </Button>
+          </motion.div>
         </motion.div>
       </motion.div>
     </div>
