@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Cake } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
+import kinnaChirAudio from "@/assets/Kinna-chir.m4a";
 
 interface CakeScreenProps {
   onNext: () => void;
@@ -41,7 +42,7 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
       if (emblaApi) {
         emblaApi.scrollNext();
       }
-    }, 1000);
+    }, 1500);
 
     return () => clearInterval(autoplay);
   }, [showWish, emblaApi]);
@@ -152,7 +153,7 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
       </div>
 
       {/* Audio element */}
-      <audio ref={audioRef} src="/kinna-chir.m4a" />
+      <audio ref={audioRef} src={kinnaChirAudio} />
 
       <div className="z-10 max-w-4xl px-6 w-full text-center">
         {!isCut ? (
