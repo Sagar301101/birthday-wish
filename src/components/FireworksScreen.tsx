@@ -10,6 +10,8 @@ const messages = [
   "Many many happy returns of the day, my princess ❣️🌏🧿",
   "You are the most important person in my life. You teach me how to live life.",
   "You have made me the person that I want to be",
+  "You are my GOD's gift, I got most understaning partner in the world.🌏🧿",
+  "You're my cute Princess. I will always give my full efforts to make you happy. May be sometime I am irritating you.🫣"
 ];
 
 export const FireworksScreen = ({ onNext }: FireworksScreenProps) => {
@@ -170,7 +172,7 @@ export const FireworksScreen = ({ onNext }: FireworksScreenProps) => {
               size="lg"
               className="bg-gradient-to-r from-primary via-gold to-celebration text-primary-foreground font-bold text-xl px-12 py-6 rounded-full hover:shadow-[var(--shadow-glow)] transition-all duration-300 hover:scale-105"
             >
-             Please Continue to Celebration 🎂
+             Please Start 🎂
             </Button>
           </motion.div>
         )}

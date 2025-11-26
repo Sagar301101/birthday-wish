@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Cake } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
 
 interface CakeScreenProps {
   onNext: () => void;
@@ -11,11 +12,44 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
   const [isCut, setIsCut] = useState(false);
   const [showWish, setShowWish] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+
+  // Sample images - replace these URLs with actual images
+  const images = [
+    "https://drive.google.com/thumbnail?id=1oP41sShxzndhEQPjIHyjyNNi32FPG5RC&sz=w1000",
+    "https://drive.google.com/thumbnail?id=1JP2yLV075CTvcthwTP9EuKWP-6z18EEa&sz=w1000",
+    "https://drive.google.com/thumbnail?id=1gNyuCjjD74tCEVi3cWxR2-jc93SHPYNp&sz=w1000",
+    "https://drive.google.com/thumbnail?id=11Jx4QbUuzT0OVgYvibhTfJJ6n2J5UatB&sz=w1000",
+    "https://drive.google.com/thumbnail?id=1DdQkaHUlODIVueXfV--ihpK8aSg3LSSy&sz=w1000",
+    "https://drive.google.com/thumbnail?id=1ZHZZkhiNSeuUAyrx1Lp_ynOsZD3zsikJ&sz=w1000",
+    "https://drive.google.com/thumbnail?id=1LbthZWpS3s2MJOlmcwOKPoeu67rOEjlf&sz=w1000",
+    "https://drive.google.com/thumbnail?id=1A0BJ9rrQmynKRbllI5VcmwPxRgy1GYpy&sz=w1000",
+    "https://drive.google.com/thumbnail?id=1NHvGNveSRwA2Ockl3xuYA8ZJusOA7u1S&sz=w1000",
+    "https://drive.google.com/thumbnail?id=12M_fOl4STw7f8ZhLRZvUuB6ngb-9VLml&sz=w1000",
+    "https://drive.google.com/thumbnail?id=17pZGwufkfRU989QEY35cVK0-_0NaarAi&sz=w1000",
+    "https://drive.google.com/thumbnail?id=1Hh2_uYK-QCuLpcQGlV-Ag1dKWeE1o3st&sz=w1000",
+    "https://drive.google.com/thumbnail?id=1yMRniGrDx5_9YKHePdTPgmSWWeTYLNh9&sz=w1000",
+    "https://drive.google.com/thumbnail?id=1E7olPQhYKXRmE3J93tBlkanJwlyzxOUj&sz=w1000",
+    "https://drive.google.com/thumbnail?id=1gqk5aTdQMpLE0yEZ586FyhoMyvXI6IMp&sz=w1000",
+  ];
+
+  // Auto-play carousel every 1 second when showing wish
+  useEffect(() => {
+    if (!showWish || !emblaApi) return;
+
+    const autoplay = setInterval(() => {
+      if (emblaApi) {
+        emblaApi.scrollNext();
+      }
+    }, 1000);
+
+    return () => clearInterval(autoplay);
+  }, [showWish, emblaApi]);
 
   const handleCutCake = () => {
     setIsCut(true);
     setShowWish(true);
-    
+
     // Play birthday song
     if (audioRef.current) {
       audioRef.current.play();
@@ -58,7 +92,11 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
                   x: [0, Math.random() * 40 - 20],
                   y: [0, Math.random() * 40 - 20],
                 }}
-                transition={{ duration: 0.8, repeat: Infinity, delay: Math.random() * 2 }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  delay: Math.random() * 2,
+                }}
               />
               <motion.div
                 className="w-3 h-3 bg-primary rounded-full absolute"
@@ -66,7 +104,11 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
                   x: [0, Math.random() * -40 + 20],
                   y: [0, Math.random() * -40 + 20],
                 }}
-                transition={{ duration: 0.8, repeat: Infinity, delay: Math.random() * 2 }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  delay: Math.random() * 2,
+                }}
               />
               <motion.div
                 className="w-3 h-3 bg-celebration rounded-full absolute"
@@ -74,12 +116,16 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
                   x: [0, Math.random() * 40 - 20],
                   y: [0, Math.random() * -40 + 20],
                 }}
-                transition={{ duration: 0.8, repeat: Infinity, delay: Math.random() * 2 }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  delay: Math.random() * 2,
+                }}
               />
             </div>
           </motion.div>
         ))}
-        
+
         {/* Additional sparkles */}
         {[...Array(20)].map((_, i) => (
           <motion.div
@@ -125,7 +171,7 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
             {/* Heading */}
             <motion.h1
               className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-gold to-celebration bg-clip-text text-transparent mb-4"
-              animate={{ 
+              animate={{
                 backgroundPosition: ["0%", "100%", "0%"],
               }}
               transition={{ duration: 3, repeat: Infinity }}
@@ -140,9 +186,10 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              I can't order a cake for now... But cut this virtual one for me please....
+              I can't order a cake for now... But cut this virtual one for me
+              please....
             </motion.p>
-            
+
             {/* Cake with multiple candles */}
             <motion.div
               className="mb-12 relative inline-block mt-14 flex flex-col"
@@ -150,7 +197,7 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
               transition={{ duration: 2, repeat: Infinity }}
             >
               <div className="text-9xl mb-4">🎂</div>
-              
+
               {/* Multiple animated candle flames */}
               <motion.div
                 className="absolute -top-10 left-[30%] md:left-[40%] transform -translate-x-1/2 flex gap-4"
@@ -168,8 +215,8 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
                       opacity: [0.7, 1, 0.7],
                       rotate: [0, 10, 0, -10, 0],
                     }}
-                    transition={{ 
-                      duration: 0.6, 
+                    transition={{
+                      duration: 0.6,
                       repeat: Infinity,
                       delay: i * 0.2,
                     }}
@@ -242,8 +289,16 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
                 >
                   Happy Birthday
                   <br />
-                  My Princess! 👑
+                  My Princess! 👑 
                 </motion.h1>
+                <motion.p
+                  className="text-xl mb-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                >
+                  Sonali_3011❣️❣️❣️
+                </motion.p>
                 
                 <motion.div
                   className="text-6xl mb-6"
@@ -254,13 +309,40 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
                 </motion.div>
 
                 <motion.p
-                  className="text-xl text-muted-foreground"
+                  className="text-xl text-muted-foreground mb-8"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
                 >
                   May your day be filled with endless joy and love ♡
                 </motion.p>
+                <motion.div
+                  className="relative max-w-2xl mx-auto"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.5 }}
+                >
+                  <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
+                    <div className="flex">
+                      {images.map((img, index) => (
+                        <div key={index} className="flex-[0_0_100%] min-w-0">
+                          <motion.div
+                            className="relative aspect-[4/3] overflow-hidden rounded-2xl border-4 border-primary/20"
+                            whileHover={{ scale: 1.02 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <img
+                              src={img}
+                              alt={`Memory ${index + 1}`}
+                              className="w-full h-full object-contain"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                          </motion.div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
               </motion.div>
             )}
           </motion.div>
