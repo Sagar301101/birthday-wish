@@ -300,23 +300,7 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
                 >
                   Sonali_3011❣️❣️❣️
                 </motion.p>
-                
-                <motion.div
-                  className="text-6xl mb-6"
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                >
-                  🎉
-                </motion.div>
 
-                <motion.p
-                  className="text-xl text-muted-foreground mb-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1 }}
-                >
-                  May your day be filled with endless joy and love ♡
-                </motion.p>
                 <motion.div
                   className="relative max-w-2xl mx-auto"
                   initial={{ opacity: 0, y: 20 }}
@@ -344,6 +328,24 @@ export const CakeScreen = ({ onNext }: CakeScreenProps) => {
                     </div>
                   </div>
                 </motion.div>
+                
+                <motion.div
+                  className="text-6xl mb-6"
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                >
+                  🎉
+                </motion.div>
+
+                <motion.p
+                  className="text-xl text-muted-foreground mb-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                >
+                  May your day be filled with endless joy and love ♡
+                </motion.p>
+               
               </motion.div>
             )}
           </motion.div>
